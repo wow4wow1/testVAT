@@ -1,59 +1,166 @@
-# Rejestry i VAT — test task
+# Rejestry i VAT
 
-Interactive demo of the "Rejestry i VAT" screen: a redesigned VAT register (sales and purchases) with login, dark theme and a document feed instead of a table.
-Plain HTML, CSS and JavaScript — no build step, no dependencies. Deploys to Vercel as a static site.
+Реестр VAT, который читается как журнал, а не как таблица. Авторское переосмысление экрана «Rejestry i VAT» для бухгалтерского SaaS.
 
-## Run locally
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Dependencies](https://img.shields.io/badge/dependencies-0-0f6b5c)
+![Build](https://img.shields.io/badge/build-none-0a2a24)
+![Deploy](https://img.shields.io/badge/deploy-Vercel-000000?logo=vercel)
 
-Open `index.html` in a browser (or serve the folder with any static server).
+[Демо](#демо) | [Идея](#идея) | [Возможности](#возможности) | [Структура](#структура-проекта) | [Запуск и публикация](#запуск-и-публикация)
 
-## Demo account
+<!-- Скриншоты: положите файлы в папку docs/ и раскомментируйте блок
+![Светлая тема](docs/light.png)
+![Тёмная тема](docs/dark.png)
+-->
 
-Use **"Wejdź na konto demo"** on the login screen, or register a new account (NIP checksum is validated, e.g. `5260250274`). Accounts live only in the browser (`localStorage`); this is a front-end prototype, there is no backend.
+---
 
-## What it does
+## Демо
 
-- **Summary hero** with gross / net / VAT, VAT-rate breakdown, and a day chart that filters the feed by day.
-- **Document feed** grouped by day (timeline), multi-select with live sum, CSV export of the selection, copy of document numbers.
-- **Smart search**: `ksef:brak`, `ksef:tak`, `>1000`, `<500`, `23%`, `8%`, `np`, `kor`, `jpk:gtu_06` combined with free text.
-- **Quick filters** with counts, full filters dialog (year, month, operation type, JPK V7 code, document series).
-- **Detail drawer** with all fields, copy on click, prev/next navigation.
-- **Visible fields** settings, print, CSV export, labels (placeholder).
-- **States**: data, empty and error (switch with the pill at the bottom), loading skeleton.
-- **Light / dark theme** (follows system, remembered), **login / registration** with validation.
-- **Keyboard**: `/` search, `j` `k` move, `x` select, `←` `→` in the drawer, `Esc` clears selection.
-- Responsive: desktop to iPhone SE, bottom-sheet dialogs on mobile.
+| | |
+|---|---|
+| Сайт | `https://ВАША-ССЫЛКА.vercel.app` |
+| Код | `https://github.com/ВАШ-НИК/ВАШ-РЕПОЗИТОРИЙ` |
 
-## Project structure
+> [!TIP]
+> Чтобы сразу войти, нажмите **«Wejdź na konto demo»** на экране входа. Регистрироваться не нужно.
 
+## Идея
+
+Исходный экран показывал всё сразу: баннеры, четыре фильтра, широкую таблицу. Здесь экран построен вокруг двух вещей, которые важны бухгалтеру: **когда** и **сколько**.
+
+| Было | Стало |
+|---|---|
+| Таблица с колонками | Лента документов по дням (таймлайн) |
+| Три цифры сверху | Тёмная карточка с итогом и разбивкой по ставкам VAT |
+| Фильтры всегда на виду | Поиск и быстрые фильтры, остальное в окне |
+| Два жёлтых предупреждения | Один чип «Wymaga potwierdzenia» |
+| Выбор даты | Диаграмма дней месяца: клик по дню фильтрует ленту |
+
+Поля и действия исходного экрана сохранены: они спрятаны глубже или показаны иначе (например, сортировка по заголовкам колонок стала списком «Sortuj»).
+
+## Возможности
+
+### Работа с документами
+
+- Лента, сгруппированная по дням, с суммой за каждый день.
+- Мультивыбор: клик по аватару, живая сумма выбранного, экспорт в CSV, копирование номеров.
+- Панель деталей со всеми полями, копирование значений по клику, переход к соседним документам.
+- Расчёт VAT по ставкам 23%, 8% и np. Суммы считаются в грошах, без ошибок округления.
+
+### Поиск и фильтры
+
+- Быстрые фильтры со счётчиками: `Bez KSeF`, `Korekty`, `Powyżej 1 000 zł`.
+- Полные фильтры: год, месяц, тип операции, код JPK V7, серии документов.
+- Настройка видимых полей, сортировка, пагинация с выбором размера страницы.
+
+### Интерфейс
+
+- Светлая и тёмная тема: следует за системой, ручной выбор запоминается.
+- Вход и регистрация с валидацией, проверкой NIP и индикатором силы пароля.
+- Адаптив от десктопа до iPhone SE, на мобильных диалоги открываются как нижние шторки.
+- Печать, экспорт и горячие клавиши.
+
+### Состояния
+
+Переключаются плашкой внизу страницы.
+
+| Состояние | Что видит пользователь |
+|---|---|
+| `Dane` | Лента, суммы, диаграмма |
+| `Brak danych` | Понятное пустое состояние, а после фильтров ещё и кнопка «Wyczyść filtry» |
+| `Błąd` | Сообщение, сохранённые фильтры, кнопка «Spróbuj ponownie» |
+
+При загрузке показывается скелетон.
+
+### Умный поиск
+
+Операторы можно сочетать между собой и с обычным текстом, например `ksef:brak >500 alfa`.
+
+| Оператор | Что делает |
+|---|---|
+| `ksef:brak`, `ksef:tak` | Документы без KSeF или с KSeF |
+| `>1000`, `<500` | Фильтр по сумме брутто |
+| `23%`, `8%`, `np` | Фильтр по ставке VAT |
+| `kor` | Только корректировки (korekty) |
+| `jpk:gtu_06` | Фильтр по коду JPK V7 |
+
+### Клавиатура
+
+| Клавиша | Действие |
+|---|---|
+| `/` | Фокус на поиск |
+| `j`, `k` | Следующий и предыдущий документ |
+| `x` | Отметить документ |
+| `←`, `→` | Листать документы в панели деталей |
+| `Esc` | Снять выбор |
+
+## Структура проекта
+
+Файлы сгруппированы по назначению: в одной папке лежат стили и скрипты одной функции.
+
+```text
+index.html               разметка страницы
+│
+├── base/                токены, сброс, общие компоненты
+│   └── base.css
+├── layout/              шапка, сетка страницы, панель поиска
+│   └── layout.css
+├── features/            основные функции экрана
+│   ├── summary.css      карточка-сводка и диаграмма дней
+│   ├── feed.css         лента, карточки, быстрые фильтры, панель выбора
+│   ├── dialogs.css      фильтры, видимые поля, панель деталей
+│   ├── filters.js       фильтрация и разбор умного поиска
+│   ├── selection.js     мультивыбор, CSV, сохранение настроек вида
+│   ├── render.js        отрисовка сводки, диаграммы, ленты, пагинации
+│   └── detail.js        панель деталей документа
+├── auth/                вход и регистрация
+│   ├── auth.css
+│   └── auth.js
+├── media/               мобильные правила и печать
+│   └── media.css
+├── themes/               тёмная тема и переключение темы
+│   ├── dark.css
+│   ├── theme-init.js    применяет тему до первой отрисовки
+│   └── theme.js
+├── core/                основа приложения
+│   ├── utils.js         помощники: селекторы, формат денег, проверка NIP
+│   └── store.js         демо-данные, расчёт VAT, состояние интерфейса
+└── app/                 запуск
+    ├── events.js        обработчики событий и горячие клавиши
+    └── main.js          инициализация
 ```
-index.html                  page markup only
-css/
-  base/base.css             design tokens, reset, shared components (buttons, selects, toast)
-  layout/layout.css         header, menu, page grid, toolbar, pagination
-  features/summary.css      totals hero card and day chart
-  features/feed.css         timeline, document cards, quick filters, selection bar, states
-  features/dialogs.css      filters, visible fields, detail drawer
-  auth/auth.css             login / registration screen
-  media/media.css           responsive and print rules
-  themes/dark.css           dark theme overrides
-js/
-  theme/theme-init.js       applies saved theme before first paint
-  theme/theme.js            light / dark toggle
-  core/utils.js             helpers: selectors, money format, toast, NIP check
-  core/store.js             demo dataset, VAT math and UI state
-  features/filters.js       filter pipeline, quick filters, smart-search parser
-  features/selection.js     multi-select, CSV export, saved view preferences
-  features/render.js        summary, day chart, feed, pagination
-  features/detail.js        document detail drawer
-  auth/auth.js              login and registration
-  app/events.js             event wiring and keyboard shortcuts
-  app/main.js               bootstrap
-```
 
-Scripts are plain (non-module) files loaded in the order listed in `index.html`, so the app also works when opened directly from disk.
+> [!NOTE]
+> Скрипты подключены обычными тегами (не ES-модули) в порядке, указанном в `index.html`, поэтому сайт работает и при открытии файла напрямую с диска.
 
-## Deploy
+## Запуск и публикация
 
-1. Push this folder to a GitHub repository.
-2. In Vercel: Add New → Project → import the repository → Deploy (no settings needed).
+**Локально:** откройте `index.html` в браузере или поднимите папку любым статическим сервером. Установка зависимостей и сборка не нужны.
+
+## Принятые решения
+
+- **Без фреймворков и сборки.** Это небольшой экран, а чистый JavaScript позволяет сдать проект одним статическим деплоем и показать, как всё устроено.
+- **Деньги в грошах.** Суммы хранятся целыми числами, а VAT считается от суммы нетто по каждой ставке, как принято в польских счетах.
+- **Состояния как часть интерфейса.** Пусто, ошибка и загрузка продуманы наравне с заполненным экраном.
+- **Доступность.** Видимый фокус, клавиатурная навигация, `aria`-атрибуты на кнопках и ошибках, учёт `prefers-reduced-motion`.
+
+## Что здесь демонстрационное
+
+> [!WARNING]
+> Это фронтенд-прототип без сервера.
+
+- Данные вымышленные (`Demo Alfa`, `Demo Dostawca`), суммы не связаны с реальным реестром.
+- Вход и регистрация работают только в браузере: аккаунты хранятся в `localStorage`, пароль в виде SHA-256 хеша. В реальном продукте проверку выполняет сервер.
+- Кнопка «Etykiety» пока заглушка.
+- Интерфейс готов к подключению backend: демо-данные и расчёты собраны в одном месте (`core/store.js`), их можно заменить запросами к API.
+
+## Автор
+
+**Yaroslav Tupikin**, Junior Frontend Developer, Warszawa
+
+[![GitHub](https://img.shields.io/badge/GitHub-wow4wow1-181717?logo=github)](https://github.com/wow4wow1)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-yaroslav--tupikin-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yaroslav-tupikin-28a4142aa/)
