@@ -1,0 +1,22 @@
+/* Dialogs: filters, visible fields, document detail drawer */
+dialog{border:0;padding:1.4rem;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(11,43,38,.5)}
+dialog h2{font-size:1.25rem;margin-bottom:1rem;letter-spacing:-.02em}
+#fDlg,#cDlg{border-radius:22px;width:min(520px,calc(100% - 1.5rem));margin:auto}
+#dDlg{margin:0 0 0 auto;height:100vh;max-height:none;width:min(440px,100%);border-radius:24px 0 0 24px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.fg label,.lbl{font-size:12.5px;color:var(--mut);font-weight:600;display:block;margin-bottom:.25rem}
+.full{grid-column:1/-1}
+.ck{display:flex;gap:.5rem;align-items:center;min-height:44px;font-size:15px!important;color:var(--ink)!important}
+.ck input{width:20px;height:20px;accent-color:var(--brand)}
+.dact{display:flex;justify-content:space-between;gap:.5rem;margin-top:1.25rem}
+.dg{display:grid;gap:.1rem}
+.dg div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.dg span{color:var(--mut);font-size:13.5px}
+.dg b{font-weight:600;text-align:right;word-break:break-all;font-variant-numeric:tabular-nums}
+.dtot{background:var(--dark);color:#fff;border-radius:18px;padding:1rem 1.2rem;margin:.8rem 0}
+.dtot b{font-size:1.9rem;letter-spacing:-.03em;display:block}
+.dg b{font-family:var(--mono);font-weight:500}
+dialog h2{font-family:var(--serif);font-weight:400;font-size:1.9rem;letter-spacing:-.02em}
+.dtot{border-radius:22px}
+.dtot b{font-family:var(--serif);font-weight:400;font-size:2.8rem}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rejestry i VAT</title>
+<script src="js/theme/theme-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base/base.css">
+<link rel="stylesheet" href="css/layout/layout.css">
+<link rel="stylesheet" href="css/features/summary.css">
+<link rel="stylesheet" href="css/features/feed.css">
+<link rel="stylesheet" href="css/features/dialogs.css">
+<link rel="stylesheet" href="css/auth/auth.css">
+<link rel="stylesheet" href="css/media/media.css">
+<link rel="stylesheet" href="css/themes/dark.css">
+</head>
+<body class="locked">
+<section id="auth">
+  <div class="au-side">
+    <div class="org">Onsaldo</div>
+    <h2>Księgowość,<br><em>która nie krzyczy.</em></h2>
+    <ul><li>Rejestry VAT w jednym widoku</li><li>KSeF i JPK pod kontrolą</li><li>Eksport w jeden klik</li></ul>
+  </div>
+  <div class="au-main">
+    <button class="btn au-theme" id="themeBtn2" aria-label="Zmień motyw">🌙</button>
+    <div class="au-card">
+      <div class="seg2" role="tablist"><button role="tab" data-au="in" aria-selected="true">Logowanie</button><button role="tab" data-au="up" aria-selected="false">Rejestracja</button></div>
+      <form id="fIn" novalidate>
+        <div class="fld"><label for="inEmail">E-mail</label><input id="inEmail" type="email" autocomplete="username" placeholder="ty@firma.pl"><span class="err" id="inEmail-e" role="alert"></span></div>
+        <div class="fld"><label for="inPw">Hasło</label><div class="pw"><input id="inPw" type="password" autocomplete="current-password"><button type="button" class="eye">Pokaż</button></div><span class="err" id="inPw-e" role="alert"></span></div>
+        <div class="row2"><label class="ckl"><input type="checkbox" id="inRem"> Zapamiętaj mnie</label><button type="button" class="lnk" id="forgot">Nie pamiętam hasła</button></div>
+        <div class="formerr" id="inErr" role="alert"></div>
+        <button class="btn pri w" id="inGo" type="submit">Zaloguj się</button>
+      </form>
+      <form id="fUp" hidden novalidate>
+        <div class="fld"><label for="upName">Imię i nazwisko</label><input id="upName" type="text" autocomplete="name"><span class="err" id="upName-e" role="alert"></span></div>
+        <div class="fld"><label for="upEmail">E-mail służbowy</label><input id="upEmail" type="email" autocomplete="email"><span class="err" id="upEmail-e" role="alert"></span></div>
+        <div class="fld"><label for="upNip">NIP firmy</label><input id="upNip" type="text" inputmode="numeric" placeholder="10 cyfr"><span class="err" id="upNip-e" role="alert"></span></div>
+        <div class="fld"><label for="upPw">Hasło</label><div class="pw"><input id="upPw" type="password" autocomplete="new-password"><button type="button" class="eye">Pokaż</button></div><div class="meter"><i id="mBar"></i></div><span class="mtxt" id="mTxt">Min. 8 znaków, cyfra i wielka litera</span><span class="err" id="upPw-e" role="alert"></span></div>
+        <div class="fld"><label for="upPw2">Powtórz hasło</label><input id="upPw2" type="password" autocomplete="new-password"><span class="err" id="upPw2-e" role="alert"></span></div>
+        <div class="fld"><label class="ckl"><input type="checkbox" id="upTerms"> Akceptuję regulamin i politykę prywatności</label><span class="err" id="upTerms-e" role="alert"></span></div>
+        <div class="formerr" id="upErr" role="alert"></div>
+        <button class="btn pri w" id="upGo" type="submit">Załóż konto</button>
+      </form>
+      <button class="btn w" id="demoGo" type="button">Wejdź na konto demo →</button>
+      <p class="mtxt">To demo: konta zapisują się tylko w Twojej przeglądarce.</p>
+    </div>
+  </div>
+</section>
+<div class="app">
+  <aside class="rail">
+    <div class="head">
+      <div>
+        <div class="org">Onsaldo Preview Sp. z o.o.</div>
+        <h1>Rejestry <em>i&nbsp;VAT</em></h1>
+        <p class="sub">Sprzedaż i zakupy w wybranym okresie — podgląd danych demonstracyjnych.</p>
+        <div class="chips"><button class="chip warn" id="warnBtn" aria-expanded="false">⚠ Wymaga potwierdzenia</button><span class="chip">DEMO</span></div>
+        <p class="note" id="note" hidden>Kontekst VAT wymaga potwierdzenia. Poniżej wyłącznie dane demonstracyjne, nie ewidencja organizacji.</p>
+      </div>
+      <div class="menu">
+        <button class="btn" id="themeBtn" aria-label="Zmień motyw">🌙</button><button class="btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Więcej działań">⋯</button>
+        <div class="pop" id="menu" role="menu"><div class="who" id="who"></div>
+          <button data-a="print">🖨 Drukuj</button><button data-a="csv">⬇ Eksportuj CSV</button><button data-a="cols">☰ Widoczne pola</button><button data-a="tags">🏷 Etykiety</button><button data-a="out">↩ Wyloguj</button>
+        </div>
+      </div>
+    </div>
+    <section class="hero" id="hero" aria-live="polite"></section>
+    <section class="days" id="days"></section>
+  </aside>
+
+  <main>
+    <div class="tool">
+      <label class="search"><span>🔍</span><input id="q" type="search" placeholder="Szukaj…  np. ksef:brak  >1000  23%  kor" aria-label="Szukaj"></label>
+      <button class="btn" id="fBtn">⚙ <span class="hide-m">Filtry</span> <span class="badge" id="fCnt" hidden></span></button>
+    </div>
+    <div class="quick" id="quick"></div>
+    <div class="act" id="act"></div>
+    <div class="sortbar"><span><span id="cnt"></span> · <button class="lnk" id="selPage">zaznacz stronę</button></span>
+      <select id="sort" aria-label="Sortuj" style="width:auto"><option value="d-1">Najnowsze</option><option value="d1">Najstarsze</option><option value="c1">Kontrahent A–Z</option><option value="net-1">Kwota malejąco</option></select></div>
+    <div id="list"></div>
+    <div class="foot" id="foot"></div>
+    <p class="hint hide-m">Skróty: / szukaj · j k nawigacja · x zaznacz · ← → w szczegółach · Esc wyczyść zaznaczenie</p>
+  </main>
+</div>
+
+<dialog id="fDlg"><h2>Filtry</h2>
+  <div class="fg">
+    <div><label for="fy">Rok</label><select id="fy"><option>2026</option><option>2025</option></select></div>
+    <div><label for="fm">Miesiąc</label><select id="fm"></select></div>
+    <div><label for="ft">Rodzaj operacji</label><select id="ft"><option value="">Wszystkie</option><option value="FV">Faktura</option><option value="KOR">Korekta</option></select></div>
+    <div><label for="fj">Kod JPK V7</label><select id="fj"><option value="">Wszystkie</option><option>GTU_06</option><option>GTU_12</option><option>Brak</option></select></div>
+    <div class="full"><span class="lbl">Serie dokumentów</span>
+      <label class="ck"><input type="checkbox" class="ser" value="FV" checked> FV — faktury</label>
+      <label class="ck"><input type="checkbox" class="ser" value="KOR" checked> KOR — korekty</label></div>
+  </div>
+  <div class="dact"><button class="btn" id="fClr">Wyczyść</button><button class="btn pri" id="fOk">Pokaż wyniki</button></div>
+</dialog>
+<dialog id="cDlg"><h2>Widoczne pola</h2><div id="cList"></div><div class="dact"><span></span><button class="btn pri" id="cOk">Gotowe</button></div></dialog>
+<dialog id="dDlg"><div id="dBody"></div></dialog>
+
+<div class="demo" role="group" aria-label="Stan demo"><span>Stan demo:</span>
+  <button data-s="ok" aria-pressed="true">Dane</button><button data-s="empty" aria-pressed="false">Brak danych</button><button data-s="error" aria-pressed="false">Błąd</button></div>
+<div class="selbar" id="selbar" hidden><span id="selInfo"></span><button class="btn" id="selCsv">⬇ CSV</button><button class="btn" id="selCopy">⧉ Numery</button><button class="btn" id="selX" aria-label="Wyczyść zaznaczenie">✕</button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/core/utils.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/features/filters.js"></script>
+<script src="js/features/selection.js"></script>
+<script src="js/features/render.js"></script>
+<script src="js/features/detail.js"></script>
+<script src="js/theme/theme.js"></script>
+<script src="js/auth/auth.js"></script>
+<script src="js/app/events.js"></script>
+<script src="js/app/main.js"></script>
+</body>
+</html>

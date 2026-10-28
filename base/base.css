@@ -1,0 +1,29 @@
+/* Design tokens (:root), reset and global element defaults */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f6f5f1;--card:#fff;--ink:#10201c;--mut:#6b7772;--line:#e4e2da;--dark:#0b2b26;--lime:#c6f36b;--brand:#0f6b5c;--warn:#fff1cf;--warnink:#7a5200;--bad:#b3261e}
+body{font:15px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid #7cc4b6;outline-offset:2px}
+:root{--bg:#f2eee3;--lime:#d6f76b;--dark:#0a2a24;--line:#e0dac8;--serif:'Instrument Serif',Georgia,'Times New Roman',serif;--mono:'DM Mono',ui-monospace,Menlo,monospace}
+body{font-family:'Manrope',system-ui,sans-serif;background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Shared UI components: buttons, selects, toast, demo-state switcher */
+select{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:.5rem .9rem;min-height:44px;font-weight:600;display:inline-flex;gap:.4rem;align-items:center}
+.btn:hover{background:#eef3f0}
+.btn.pri{background:var(--dark);color:#fff;border-color:var(--dark)}
+.btn:disabled{opacity:.4;cursor:default}
+select{border:1px solid var(--line);border-radius:12px;padding:.5rem .6rem;min-height:44px;background:var(--card);width:100%}
+.demo{position:fixed;bottom:.75rem;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;border-radius:99px;padding:.3rem;display:flex;gap:.15rem;font-size:13px;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.demo span{padding:.4rem .6rem;opacity:.6}
+.demo button{background:none;border:0;color:#fff;padding:.4rem .8rem;border-radius:99px;min-height:36px}
+.demo button[aria-pressed=true]{background:var(--lime);color:var(--dark)}
+.toast{position:fixed;bottom:4rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.toast.show{opacity:1}
+.btn,select{border:1.5px solid var(--dark);border-radius:14px}
+.btn.pri{box-shadow:3px 3px 0 var(--brand)}
+.lnk{background:none;border:0;color:var(--brand);font-weight:700;text-decoration:underline;text-underline-offset:3px;padding:.5rem .2rem;min-height:40px}
+.toast{bottom:8.5rem}
+[data-copy]{cursor:copy}
+[data-copy]:hover{color:var(--brand);text-decoration:underline dotted}

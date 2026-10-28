@@ -1,0 +1,11 @@
+/* Responsive rules (mobile) and reduced-motion */
+@media(max-width:860px){.app{grid-template-columns:1fr;gap:1.2rem;padding-top:1rem}.rail{position:static}
+#fDlg,#cDlg,#dDlg{margin:auto 0 0;width:100%;max-width:none;height:auto;max-height:88vh;border-radius:22px 22px 0 0}
+.fg{grid-template-columns:1fr}.demo span{display:none}.hide-m{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(max-width:860px){#list{padding-left:1.5rem}.gh::before{left:-1.5rem}.dn{font-size:2.2rem}.it{grid-template-columns:44px 1fr 108px}}
+@media(max-width:860px){#auth{grid-template-columns:1fr}.au-side{padding:1.5rem 1.25rem 2rem}.au-side ul{display:none}.au-main{padding-top:1.5rem;align-items:start}.au-theme{top:-3.2rem}}
+
+/* Print styles */
+@media print{.menu,.demo,.tool,.act,.foot,.sortbar,.days{display:none!important}.hero{background:#fff;color:#000;border:1px solid #000}body{background:#fff}.it{break-inside:avoid}}
+@media print{.it{box-shadow:none}}

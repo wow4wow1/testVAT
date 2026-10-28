@@ -1,0 +1,23 @@
+/* Dark theme overrides */
+[data-theme=dark]{color-scheme:dark;--bg:#0c1613;--card:#14211d;--ink:#eae6d8;--mut:#93a39c;--line:#2b3b36;--dark:#d9d4c3;--brand:#56d3b6;--warn:#3a2f10;--warnink:#f1cf7a}
+[data-theme=dark] .hero{background:radial-gradient(120% 120% at 100% 0,#14594c 0,#0b2b26 55%);box-shadow:0 22px 40px -22px #000}
+[data-theme=dark] .seg button[aria-selected=true],[data-theme=dark] .badge,[data-theme=dark] .btn.pri,[data-theme=dark] .qk[aria-pressed=true],[data-theme=dark] .demo button[aria-pressed=true],[data-theme=dark] .toast,[data-theme=dark] .selbar,[data-theme=dark] .av{color:#0a2a24}
+[data-theme=dark] .selbar .btn{color:var(--ink)}
+[data-theme=dark] .dtot,[data-theme=dark] .demo{background:#0b2b26;color:#fff}
+[data-theme=dark] .toast{background:#eae6d8}
+[data-theme=dark] .it,[data-theme=dark] .days{border-color:var(--line);box-shadow:3px 3px 0 #000}
+[data-theme=dark] .days{box-shadow:5px 5px 0 #000}
+[data-theme=dark] .it:hover{box-shadow:5px 5px 0 #000}
+[data-theme=dark] .it:active{box-shadow:1px 1px 0 #000}
+[data-theme=dark] .it.sel{background:#1c2c12;border-color:var(--brand)}
+[data-theme=dark] .it.sel .av{background:#0a2a24!important;color:var(--lime)}
+[data-theme=dark] .search input,[data-theme=dark] .btn,[data-theme=dark] select,[data-theme=dark] .qk,[data-theme=dark] .msg{border-color:var(--line)}
+[data-theme=dark] .btn.pri{border-color:var(--dark);box-shadow:3px 3px 0 #000}
+[data-theme=dark] .btn:hover,[data-theme=dark] .pop button:hover{background:#1d2f29}
+[data-theme=dark] .act .chip{background:#12332c;border-color:#24544a}
+[data-theme=dark] .chip.warn{border-color:#5a4616}
+[data-theme=dark] .chart button{background:repeating-linear-gradient(0deg,#33443e 0 3px,transparent 3px 5px)}
+[data-theme=dark] .chart button.has{background:var(--brand)}
+[data-theme=dark] .sk{background:linear-gradient(90deg,#14211d,#1d2e28,#14211d);background-size:200% 100%;border-color:var(--line)}
+[data-theme=dark] h1 em{background:linear-gradient(transparent 62%,rgba(214,247,107,.4) 62% 92%,transparent 92%)}
+[data-theme=dark] .au-theme{border-color:var(--line)}
